@@ -55,6 +55,7 @@ q {
 
 .slide pre {
   margin-left: 0;
+  margin-right: -60px;
   overflow: auto;
 }
 
