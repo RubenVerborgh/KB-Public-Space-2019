@@ -37,10 +37,9 @@
       their <em>choice</em> on the Web.
     </p>
     <p class="next">
-      People should be free to share<br>
-      whatever they want<br>
-      with whomever they want,<br>
-      while paying a fair price.
+      People should be in control<br>
+      of what they share with whom<br>
+      at all times.
     </p>
   </div>
 
@@ -51,9 +50,9 @@
       <span class="next">while<br> storing your data wherever you want.</span>
     </p>
     <p class="next">
-      You own your data,
-      <span class="next">and share it<br>
-      with the apps and people you choose.</span>
+      Solid reshapes the relationship<br>
+      between people, their data,<br>
+      and the services they use.
     </p>
   </div>
 
@@ -421,45 +420,53 @@
 
   <div class="slide" id="linking">
     <h2>
-      Through URLs and RDF, every piece of data<br>
+      With RDF, every piece of data<br>
       can link to any other piece of data.
     </h2>
-    <pre><code><span class="prefix">PREFIX as: &lt;https://www.w3.org/ns/activitystreams#&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
-&lt;#ruben-likes-lds2018&gt; a as:Like;
-  as:actor  <mark>&lt;https://ruben.verborgh.org/profile/#me&gt;</mark>;
-  as:object <mark>&lt;https://onderwijsaanbod.kuleuven.be/syllabi/e/F0XO5AE.htm#this&gt;</mark>;
-  as:published "2018-11-19T08:00:00Z"^^xsd:dateTime.</code></pre>
+    <pre><code>{
+  <span class="prefix">"@context":  "https://www.w3.org/ns/activitystreams",</span>
+  "id":        "#ruben-likes-kb2019",
+  "type":      "Like",
+  "actor":     "<mark>https://ruben.verborgh.org/profile/#me</mark>",
+  "object":    "<mark>https://www.kb.nl/nieuws/2019/kb-sessie-heruitvinden-van-de-digitale-publieke-ruimte#event</mark>",
+  "published": "2019-11-12T15:00:00Z"
+}</code></pre>
   </div>
 
   <div class="slide" id="semantics">
     <h2>
-      Shapes (and hopefully soon semantics)<br>
+      Data shapes and their semantics<br>
       enable <em>layered compatibility</em>.
     </h2>
-    <pre><code><span class="prefix">PREFIX as: &lt;https://www.w3.org/ns/activitystreams#&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
-&lt;#ruben-likes-lds2018&gt; <mark>a as:Like;</mark>
-  <mark>as:actor</mark>  &lt;https://ruben.verborgh.org/profile/#me&gt;;
-  <mark>as:object</mark> &lt;https://onderwijsaanbod.kuleuven.be/syllabi/e/F0XO5AE.htm#this&gt;;
-  <mark>as:published</mark> "2018-11-19T08:00:00Z"^^xsd:dateTime.</code></pre>
+    <pre><code>{
+  <span class="prefix">"@context":  "https://www.w3.org/ns/activitystreams",</span>
+  "id":        "#ruben-likes-kb2019",
+  "<mark>type</mark>":      "<mark>Like</mark>",
+  "<mark>actor</mark>":     "https://ruben.verborgh.org/profile/#me",
+  "<mark>object</mark>":    "https://www.kb.nl/nieuws/2019/kb-sessie-heruitvinden-van-de-digitale-publieke-ruimte#event",
+  "<mark>published</mark>": "2019-11-12T15:00:00Z"
+}</code></pre>
   </div>
 
   <div class="slide" id="integration">
     <h2>
-      Different source data can be concatenated<br>
-      (but let’s track provenance).
+      Different source data<br>
+      can be concatenated.
     </h2>
-    <pre><code><span class="prefix">PREFIX as: &lt;https://www.w3.org/ns/activitystreams#&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
-&lt;#ruben-likes-lds2018&gt; a as:Like;
-  as:actor  <mark>&lt;https://ruben.verborgh.org/profile/#me&gt;</mark>;
-  as:object <mark>&lt;https://onderwijsaanbod.kuleuven.be/syllabi/e/F0XO5AE.htm#this&gt;</mark>;
-  as:published "2018-11-19T08:00:00Z"^^xsd:dateTime.
-&lt;#tom-likes-lds2018&gt; a as:Like;
-  as:actor  <mark>&lt;https://www.kuleuven.be/wieiswie/en/person/00084411#me&gt;</mark>;
-  as:object <mark>&lt;https://onderwijsaanbod.kuleuven.be/syllabi/e/F0XO5AE.htm#this&gt;</mark>;
-  as:published "2018-11-19T08:05:00Z"^^xsd:dateTime.</code></pre>
+    <pre><code>{
+  <span class="prefix">"@context":  "https://www.w3.org/ns/activitystreams",</span>
+  <span class="prefix">"@graph":</span> [{
+    "type":      "Like",
+    "actor":     <mark>"https://ruben.verborgh.org/profile/#me"</mark>,
+    "object":    "https://www.kb.nl/nieuws/2019/kb-sessie-heruitvinden-van-de-digitale-publieke-ruimte#event",
+    "published": "2019-11-12T15:00:00Z"
+  },{
+    "type":      "Like",
+    "actor":     <mark>"https://example.org/people/ronald#me"</mark>,
+    "object":    "https://www.kb.nl/nieuws/2019/kb-sessie-heruitvinden-van-de-digitale-publieke-ruimte#event",
+    "published": "2019-11-12T15:05:00Z"
+  }]
+}</code></pre>
   </div>
 
   <div class="toc slide" id="toc-solution">
@@ -470,7 +477,7 @@ PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
         <a href="#toc-solution">Solution – Solid standards and software</a>
         <ul>
           <li class="current"><a href="#toc-solution">The Solid project</a></li>
-          <li><a href="#toc-roadmap">Roadmap</a></li>
+          <li><a href="#toc-public-spaces">Public spaces</a></li>
         </ul>
       </li>
     </ul>
@@ -626,20 +633,6 @@ PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
     </ul>
   </div>
 
-  <div class="toc slide" id="toc-roadmap">
-    <ul>
-      <li><a href="#toc-challenge">Challenge – Taking back the Web</a></li>
-      <li><a href="#toc-philosophy">Philosophy – Separating data from apps</a></li>
-      <li class="current">
-        <a href="#toc-solution">Solution – Solid standards and software</a>
-        <ul>
-          <li><a href="#toc-solution">The Solid project</a></li>
-          <li class="current"><a href="#toc-roadmap">Roadmap</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-
   <div class="slide" id="past">
     <h2>
       The Solid server and several apps exist<br>
@@ -682,7 +675,7 @@ PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
   <div class="slide" id="present">
     <h2>
       Solid is transitioning from research project<br>
-      into an ecosystem backed by a start-up.
+      into an ecosystem backed by start-ups.
     </h2>
     <ul>
       <li>
@@ -694,28 +687,27 @@ PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
       <li class="next">
         Inrupt is accelerating development
         <ul>
-          <li class="next">open up the ecosystem for all</li>
-          <li class="next">maintain common building blocks as open source</li>
-          <li class="next">create tooling for developers</li>
-          <li class="next">offer services and apps</li>
+          <li>open up the ecosystem for all</li>
+          <li>maintain common building blocks as open source</li>
+          <li>create tooling for developers</li>
+          <li>offer services and apps</li>
         </ul>
       </li>
     </ul>
   </div>
 
-  <div class="slide" id="future">
-    <h2>
-      We aim to bring the Solid experience<br>
-      to people all over the world.
-    </h2>
-    <dl>
-      <dt>October 2018</dt>
-      <dd class="next">launch of Inrupt</dd>
-      <dt>Fall 2018</dt>
-      <dd class="next">developer toolkit &amp; common UX</dd>
-      <dt>early 2019</dt>
-      <dd class="next">MVP of the ecosystem</dd>
-    </dl>
+  <div class="toc slide" id="toc-public-spaces">
+    <ul>
+      <li><a href="#toc-challenge">Challenge – Taking back the Web</a></li>
+      <li><a href="#toc-philosophy">Philosophy – Separating data from apps</a></li>
+      <li class="current">
+        <a href="#toc-solution">Solution – Solid standards and software</a>
+        <ul>
+          <li><a href="#toc-solution">The Solid project</a></li>
+          <li class="current"><a href="#toc-public-spaces">Public spaces</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
   <div class="toc slide" id="recap">
@@ -733,13 +725,13 @@ PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
     </p>
     <p class="next">
       It breaks up silos on the Web<br>
-      by linking to information<br>
+      by <em>linking</em> to information<br>
       rather than harvesting it.
     </p>
     <p>
       <em>
         <span class="next">Your data,</span>
-        <span class="next">your apps,</span>
+        <span class="next">your services,</span>
         <span class="next">your choice.</span>
       </em>
     </p>
